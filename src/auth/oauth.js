@@ -17,7 +17,7 @@ const googleStrategy = new GoogleStrategy(
 
             if (author) {
                 const token = await JWTAuthenticate(author)
-                passportNext(null, token)
+                passportNext(null, {token})
             } else {
                 const newAuthor = {
                     name: profile.name.givenName,
@@ -29,7 +29,7 @@ const googleStrategy = new GoogleStrategy(
 
                 const createdAuthor = new AuthorModel(newAuthor)
                 const savedAuthor = await createdAuthor.save()
-                const token = await JWTAuthenticate(savedAuthor)
+                const tokens = await JWTAuthenticate(savedAuthor)
 
                 passportNext(null, { author: savedAuthor, token })
             }
