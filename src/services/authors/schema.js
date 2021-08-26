@@ -19,16 +19,19 @@ const AuthorSchema = new Schema(
         },
         password: {
             type: String,
-            required: true,
+            // required: true,
         },
         dateOfBirth: {
             type: String,
-            required: true,
+            // required: true,
         },
         avatar: {
             type: String,
             default: `https://ui-avatars.com/api/?name=John+Doe`,
         },
+        googleId: {
+            type: String,
+        }
     },
     {
         timestamps: true

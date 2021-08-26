@@ -3,8 +3,20 @@ import AuthorModel from './schema.js'
 import createError from 'http-errors'
 import { basicAuthMiddleware, JWTAuthMiddleware } from '../../auth/middleWares.js'
 import { JWTAuthenticate } from '../../auth/tools.js'
+import passport from 'passport'
 
 const authorsRouter = express.Router()
+
+// ===============  OAUTH GOOGLE  =======================
+authorsRouter.get('/googleLogin', passport.authenticate('google', { scope: ['profile', 'email'] }))
+authorsRouter.get('/googleRedirect', passport.authenticate('google'), async (req, res, next) => {
+    try {
+        
+    } catch (error) {
+        console.log(error)
+        next(error)
+    }
+})
 
 // ===============  CREATES NEW AUTHOR =======================
 authorsRouter.post('/register', async (req, res, next) => {
