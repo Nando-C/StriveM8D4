@@ -12,7 +12,7 @@ const googleStrategy = new GoogleStrategy(
     
     async (accessToken, refreshToken, profile, passportNext) => {
         try {
-            console.log(profile)
+            // console.log(profile)
             const author = await AuthorModel.findOne({googleId: profile.id})
 
             if (author) {
@@ -31,7 +31,7 @@ const googleStrategy = new GoogleStrategy(
                 const savedAuthor = await createdAuthor.save()
                 const token = await JWTAuthenticate(savedAuthor)
 
-                passportNext(null, { author: savedAuthor, token})
+                passportNext(null, { author: savedAuthor, token })
             }
         } catch (error) {
             console.log(error)
@@ -40,8 +40,8 @@ const googleStrategy = new GoogleStrategy(
     }
 )
 
-passport.serializeUser(function (user, passportNext) {
-    passportNext(null, user)
+passport.serializeUser(function (author, passportNext) {
+    passportNext(null, author)
 })
 
 export default googleStrategy
