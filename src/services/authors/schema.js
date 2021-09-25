@@ -31,6 +31,9 @@ const AuthorSchema = new Schema(
         },
         googleId: {
             type: String,
+        },
+        refreshToken: {
+            type: String,
         }
     },
     {
@@ -60,9 +63,9 @@ AuthorSchema.methods.toJSON = function () {
 }
 
 AuthorSchema.statics.checkCredentials = async function (email, plainPW) {
-    const author = await this.findOne({ email})
+    const author = await this.findOne({ email })
 
-    if( author) {
+    if( author ) {
         const isMatch = await bcrypt.compare(plainPW, author.password)
 
         if(isMatch) return author

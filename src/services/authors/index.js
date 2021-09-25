@@ -9,10 +9,11 @@ const authorsRouter = express.Router()
 
 // ===============  OAUTH GOOGLE  =======================
 authorsRouter.get('/googleLogin', passport.authenticate('google', { scope: ['profile', 'email'] }))
+
 authorsRouter.get('/googleRedirect', passport.authenticate('google'), async (req, res, next) => {
     try {
         // console.log(req.user.author)
-        res.redirect(`http://localhost:3000?accessToken=${req.user.token}`)
+        res.redirect(`http://localhost:3000?accessToken=${req.user.tokens.accessToken}`)
     } catch (error) {
         console.log(error)
         next(error)
